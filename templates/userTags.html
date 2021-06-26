@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+    <title>My Profile</title>
+</head>
+{% if name %}
+  <h1>{{ name }}!</h1>
+{% endif %}
+
+<ul>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/upload'>Upload a photo</a> </li>
+    <li><a href='/add-tag'>Add tags</a> </li>
+    <li><a href='/popular-tags'>Popular</a> </li>
+    <li><a href='/tags'>View Tags</a> </li>
+    <li><a href='/you-may-also-like-tags'>You may also like</a> </li>
+    <li><a href='/topUser'>Top Users</a> </li>
+    <li><a href='/search-comment'>Search comment</a> </li>
+    <li><a href='/search-photo'>Search photos</a> </li>
+    <li><a href='/profile/tags'>Your Tags</a> </li>
+    <li><a href='/topUser'>Top Users!</a> </li>
+    <li><a href='/findfriends'>Search for friends!</a> </li>
+    <li><a href='/listfriends'>List your friends!</a> </li>
+    <li><a href='/recFriends'>Recommended friends!</a> </li>
+    <li><a href='/createAlbum'>Create album!</a> </li>
+    <li><a href='/viewAlbums'>View your albums!</a> </li>
+    <li><a href='/viewAllAlbums'>View all albums!</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+</ul>
+
+{% if tags %}
+    {% for tag in tags %}
+        <tr>
+            <a href= "{{url_for('tagUserPhotos', tag_id = tag[0]) }}"> Tag: {{tag[1]}}</a>
+        </tr>
+    {% endfor%}
+{% endif %}

@@ -1,0 +1,43 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<head>
+    <title>Upload a photo!</title>
+</head>
+
+    <body>
+        <div class="title">
+            <h1>Upload a photo to Photoshare</h1>
+        </div>
+
+        <ul>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/upload'>Upload a photo</a> </li>
+    <li><a href='/add-tag'>Add tags</a> </li>
+    <li><a href='/popular-tags'>Popular</a> </li>
+    <li><a href='/tags'>View Tags</a> </li>
+    <li><a href='/you-may-also-like-tags'>You may also like</a> </li>
+    <li><a href='/topUser'>Top Users</a> </li>
+    <li><a href='/search-comment'>Search comment</a> </li>
+    <li><a href='/search-photo'>Search photos</a> </li>
+    <li><a href='/profile/tags'>Your Tags</a> </li>
+    <li><a href='/topUser'>Top Users!</a> </li>
+    <li><a href='/findfriends'>Search for friends!</a> </li>
+    <li><a href='/listfriends'>List your friends!</a> </li>
+    <li><a href='/recFriends'>Recommended friends!</a> </li>
+    <li><a href='/createAlbum'>Create album!</a> </li>
+    <li><a href='/viewAlbums'>View your albums!</a> </li>
+    <li><a href='/viewAllAlbums'>View all albums!</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+</ul>
+
+            <form method="post" enctype="multipart/form-data" action="/upload">
+                <label for="photo">Select photo:</label>
+                <input type="file" name="photo" required='true' /><br />
+                <label for="caption">Please caption:</label>
+                <input type="text" name="caption" required='true' /><br />
+                <label for="album">Enter your album name:</label>
+                <input type="text" name="albumname" required='true' /><br />
+                <input type="submit" value="Upload" />
+            </form>
+
+
+    </body>

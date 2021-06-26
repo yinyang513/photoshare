@@ -1,0 +1,54 @@
+<!doctype html>
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+{% if message is none %}
+  <p>You should <a href='/login'>login!</a></p>
+{% else %}
+  <p> Go to <a href='/profile'>profile</a></p>
+{% endif %}
+
+<ul>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/upload'>Upload a photo</a> </li>
+    <li><a href='/add-tag'>Add tags</a> </li>
+    <li><a href='/popular-tags'>Popular</a> </li>
+    <li><a href='/tags'>View Tags</a> </li>
+    <li><a href='/you-may-also-like-tags'>You may also like</a> </li>
+    <li><a href='/topUser'>Top Users</a> </li>
+    <li><a href='/search-comment'>Search comment</a> </li>
+    <li><a href='/search-photo'>Search photos</a> </li>
+    <li><a href='/profile/tags'>Your Tags</a> </li>
+    <li><a href='/topUser'>Top Users!</a> </li>
+    <li><a href='/findfriends'>Search for friends!</a> </li>
+    <li><a href='/listfriends'>List your friends!</a> </li>
+    <li><a href='/recFriends'>Recommended friends!</a> </li>
+    <li><a href='/createAlbum'>Create album!</a> </li>
+    <li><a href='/viewAlbums'>View your albums!</a> </li>
+    <li><a href='/viewAllAlbums'>View all albums!</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+</ul>
+
+{% if photos%}
+<h2>Here are your photos</h2>
+    <ul>
+    {% for photo in photos %}
+
+        <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}'/></li>
+        <li>Caption: {{photo[2]}}<br>
+
+        <form method="post" action="/add-tag">
+            <label for="tag">Tag: </label>
+            <input type="text" name="tag" required='true' /><br />
+            <input type="hidden" name="photo_id" value = {{photo[1]}}> 
+            <input type="submit" value="Add Tag" />
+        </form>
+
+    {% endfor %}
+    </ul>
+{% endif %}

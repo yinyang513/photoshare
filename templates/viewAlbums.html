@@ -1,0 +1,35 @@
+<!doctype html>
+<ul>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/upload'>Upload a photo</a> </li>
+    <li><a href='/add-tag'>Add tags</a> </li>
+    <li><a href='/popular-tags'>Popular</a> </li>
+    <li><a href='/tags'>View Tags</a> </li>
+    <li><a href='/you-may-also-like-tags'>You may also like</a> </li>
+    <li><a href='/topUser'>Top Users</a> </li>
+    <li><a href='/search-comment'>Search comment</a> </li>
+    <li><a href='/search-photo'>Search photos</a> </li>
+    <li><a href='/profile/tags'>Your Tags</a> </li>
+    <li><a href='/topUser'>Top Users!</a> </li>
+    <li><a href='/findfriends'>Search for friends!</a> </li>
+    <li><a href='/listfriends'>List your friends!</a> </li>
+    <li><a href='/recFriends'>Recommended friends!</a> </li>
+    <li><a href='/createAlbum'>Create album!</a> </li>
+    <li><a href='/viewAlbums'>View your albums!</a> </li>
+    <li><a href='/viewAllAlbums'>View all albums!</a> </li>
+    <li><a href='/logout'>Logout</a></li>
+</ul>
+
+<h1>Here are all your albums!</h1>
+{% if data %}
+        {% for item in data %}
+            <tr>
+                <td> </td>
+                
+                Album id: {{item[0]}}<a href= "{{ url_for('albumPhotos', albumID=item[0]) }}"> Album name:{{item[1]}} </a></br>
+                <a href= "{{ url_for('deleteAlbum', albumID=item[0]) }}">Delete Album!</a></br>
+                </br>
+            </tr>
+        {% endfor %}
+        
+    {% endif %}
