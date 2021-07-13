@@ -14,7 +14,6 @@ from flask import Flask, Response, request, render_template, redirect, url_for
 from flaskext.mysql import MySQL
 import flask_login
 from datetime import date
-
 import config
 
 #for image uploading
@@ -285,7 +284,7 @@ def displayUserTags():
     userPhotosByTag = cursor.fetchall()
     cursor.execute("SELECT T.tag_id, T.name FROM Pictures P, Tags T, Tagged TG WHERE P.picture_id = TG.photo_id AND TG.tag_id = T.tag_id AND user_id = '{0}' ORDER BY T.tag_id ASC".format(uid))
     userTags = cursor.fetchall()
-    print(userTags)
+    # print(userTags)
     return render_template('userTags.html', name=flask_login.current_user.id, photos = userPhotosByTag, tags = userTags, base64 = base64)
 
 @app.route('/tags')
@@ -319,7 +318,7 @@ def tagRecommendations():
     tags = cursor.fetchall()
     # topFive = [tag[1] for tag in tags]
     for i in range(len(tags)): topFive[i] = tags[i][1]
-    print(topFive)
+    # print(topFive)
     #get the number of tags each photo has
     cursor.execute("SELECT photo_id, COUNT(photo_id) FROM Tagged GROUP BY photo_id")
     numOfTags = cursor.fetchall()
@@ -596,23 +595,23 @@ def userCon():
     for i in range(1, num_users[0][0]):
         userCon.append([i,0])
 
-    print(userCon)
+    # print(userCon)
     for i in range(len(photo_con)):
         user = photo_con[0][0]
-        print('user', user, photo_con[i][1])
+        # print('user', user, photo_con[i][1])
     for i in range(len(photo_con)):
         user = photo_con[i][0]
-        print(user)
+        # print(user)
         userCon[user-1][1] += photo_con[i][1]
-    print("cc", comment_con)   
+    # print("cc", comment_con)   
     for i in range(len(comment_con)):
         user = comment_con[i][0]
-        print(i)
-        print(comment_con[i][1])
+        # print(i)
+        # print(comment_con[i][1])
         if user != -1:
             userCon[user-1][1] += comment_con[i][1]
         
-    print('User contribution:', userCon)
+    # print('User contribution:', userCon)
     return userCon
 
 def key(count):
@@ -621,7 +620,7 @@ def key(count):
 #top10users
 def topUsers():
     user_Con = userCon()
-    print('top users user con is', user_Con)
+    # print('top users user con is', user_Con)
     sortedUserCon = sorted(user_Con, key = key, reverse = True)
     top10 = []
     if len(sortedUserCon)<=10:
@@ -636,16 +635,16 @@ def topUsers():
 @app.route('/topUser', methods = ['GET', 'POST'])
 def topUser():
     top10Users = topUsers()
-    print(top10Users)
+    # print(top10Users)
     result = []
     if top10Users != None:
         for u in top10Users:
-            print('U is', u)
+            # print('U is', u)
             cursor = conn.cursor()
             cursor.execute("SELECT email FROM Users WHERE user_id='{0}'".format(u))
-            print('idl')
+            # print('idl')
             result.append(cursor.fetchall())
-        print(result)
+        # print(result)
         return render_template('topUser.html', topUsers = result)
     else: 
         return render_template('home.html', message = 'No users found!')
@@ -684,11 +683,11 @@ def createAlbum():
         cursor.execute("SELECT album_name from Albums WHERE user_id = '{0}'".format(uid))
         albums = cursor.fetchall()
         albums = [a[0] for a in albums]
-        print('Album name is', album_name)
+        # print('Album name is', album_name)
         if album_name in albums:
             return render_template('home.html', name=flask_login.current_user.id, message='Album with this name has already been created!', base64=base64)
-        print(album_name in albums)
-        print(albums)
+        # print(album_name in albums)
+        # print(albums)
 
         cursor = conn.cursor()
         cursor.execute("INSERT INTO Albums(user_id, album_name, creation_date) VALUES ('{0}', '{1}', '{2}')".format(uid, album_name, today))
@@ -759,12 +758,12 @@ def deletePhoto():
     cursor = conn.cursor()
     cursor.execute("SELECT user_id FROM Pictures WHERE picture_id = '{0}'".format(pid))
     oid = cursor.fetchone()[0]
-    print(oid)
+    # print(oid)
     if oid == uid:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM Pictures WHERE picture_id = '{0}'".format(pid))
         conn.commit()
-        print(oid, uid)
+        # print(oid, uid)
         return render_template('home.html', name=flask_login.current_user.id, message='Photo deleted!', photos=getUsersPhotos(uid),base64=base64)
     else:
         return render_template('home.html', message='Unable to delete. Not your photo!')
@@ -775,7 +774,7 @@ def deletePhoto():
 def deleteAlbum():
     uid = getUserIdFromEmail(flask_login.current_user.id)
     aid = request.args.get('albumID')
-    print(aid)
+    # print(aid)
     cursor = conn.cursor()
     cursor.execute("DELETE FROM Albums WHERE albumID = '{0}'".format(aid))
     conn.commit()
